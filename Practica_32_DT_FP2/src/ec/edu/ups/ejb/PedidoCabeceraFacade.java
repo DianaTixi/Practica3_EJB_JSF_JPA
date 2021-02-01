@@ -32,5 +32,17 @@ public class PedidoCabeceraFacade extends AbstractFacade<Pedido_Cabecera>{
 		}
 	}
 	
+	public Pedido_Cabecera buscar(int id) {
+		try {
+			String jpql = "SELECT pc FROM Pedido_Cabecera pc WHERE pc.num_cabecera=" + id; 
+			Pedido_Cabecera pedido = (Pedido_Cabecera) em.createQuery(jpql).getSingleResult();
+			return pedido;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 
 }

@@ -5,12 +5,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
-    <title>Inventario por Bodega</title>
+    <title>Listar Pedidos</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Distribuidora</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
@@ -19,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/Practica_32_DT_FP2/css/styles.css" rel="stylesheet" />
+    <link href="../../css/styles.css" rel="stylesheet" />
 
 </h:head>
 <h:body id="page-top">
@@ -47,40 +46,47 @@
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading">
-            <div class="masthead-heading text-uppercase">Inventario por Bodega</div>
-                <h:form id="formulario01">
-                	<br></br>
-                    <label> Nombre de la Bodega</label>
-                    <br></br>
-                    <h:inputText id="nombre" value="#{bodegaProductoBean.nombreBodega}" />
-                    <br></br>
-                    <br></br>
-                    <h:commandButton class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" value="Buscar" action="#{bodegaProductoBean.InventarioBodega}" />
-                <br></br>
-                <br></br>  
-                <h:dataTable value="#{bodegaProductoBean.listaBodegaP}" var="bp" >
+            <div class="masthead-heading text-uppercase">Listar Pedidos</div>
+                <h:form class="masthead-subheading" >
+					<h:dataTable value="#{pedidoCabeceraBean.pedidos}" var="p" styleClass="tabla"
+						headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 					<h:column>
-						<f:facet name="header">Nombre Bodega</f:facet>#{bp.bodega.nombre}
-					</h:column>
-					<h:column>
-						<f:facet name="header">ID Producto</f:facet>#{bp.producto.id}
+						<f:facet name="header">Numero</f:facet>#{p.num_cabecera}
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">Nombre Producto</f:facet>#{bp.producto.nombre}
+						<f:facet name="header">Estado</f:facet>#{p.estado}
 					</h:column>
+					
 					<h:column>
-						<f:facet name="header">Precio Producto</f:facet>#{bp.producto.precio}
+						<f:facet name="header">Nombre</f:facet>#{p.empleado.nombre}
 					</h:column>
+					
 					<h:column>
-						<f:facet name="header">Stock</f:facet>#{bp.stock}
+						<f:facet name="header">Apellido</f:facet>#{p.empleado.apellido}
 					</h:column>
-				</h:dataTable>
-                </h:form>
-            </div>
-        </div>
+					
+					<h:column>
+						<f:facet name="header">Cedula</f:facet>#{p.empleado.cedula}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Estado</f:facet>
+						<h:commandButton class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" value="Receptado" action="#{pedidoCabeceraBean.cambiarEstado(p.num_cabecera)}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Ver Detalle</f:facet>
+						<h:commandButton class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" value="Detalle" action="#{pedidoDetalleBean.detalles(p.num_cabecera)}" />
+					</h:column>
+						
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
     </header>
 
 </h:body>
 
 </html>
+

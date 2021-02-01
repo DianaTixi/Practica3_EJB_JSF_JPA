@@ -4,14 +4,13 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html" 
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <link rel="stylesheet" type="text/css" href="../css/estilos.css" media="screen" />
-    <title>Iniciar Sesion</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+    <title>Listar Pedidos Detalle</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Distribuidora</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -19,10 +18,9 @@
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/Practica_32_DT_FP2/css/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="../../css/styles.css" rel="stylesheet" />
 
 </h:head>
-
 <h:body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -34,42 +32,51 @@
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Pagina Principal</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>-->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="IniciarSesion.html">Log In</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Masthead-->
+
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading">
-                <h:form id="formulario01">
-                	<br></br>
-                    <label> Correo Electronico </label>
-                    <br></br>
-                    <h:inputText id="email" value="#{empleadoBean.email}" />
-                    <br></br>
-                    <br></br>
-                    <label> Contraseña </label>
-                    <br></br>
-                    <h:inputSecret id="pass" value="#{empleadoBean.pass}" />
-                    <br></br>
-                    <br></br>
-                    <h:commandButton class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" value="IniciarSesion" action="#{empleadoBean.IniciarSesion}" />
-                </h:form>
-            </div>
-        </div>
+            <div class="masthead-heading text-uppercase">Listar Pedido Detalle</div>
+                <h:form class="masthead-subheading" >
+					<h:dataTable value="#{pedidoDetalleBean.listaPedDet}" var="pde" styleClass="tabla"
+						headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+					<h:column>
+						<f:facet name="header">Numero</f:facet>#{pde.num_detalle}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Estado</f:facet>#{pde.cantidad}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Nombre</f:facet>#{pde.productos.nombre}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Apellido</f:facet>#{pde.productos.precio}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Pedido</f:facet>#{pde.pedidoCab.num_cabecera}
+					</h:column>
+					
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
     </header>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+
 </h:body>
 
 </html>
+

@@ -175,7 +175,7 @@ private static final long serialVersionUID = 1L;
     		System.out.println("Id del cliente"+id);
     		empleado = ejbEmpleadoFacade.findEmp(id);
     		Pedido_Cabecera pc = new Pedido_Cabecera();
-    		pc.setEstado('Y');
+    		pc.setEstado('E');
     		pc.setEmpleado(empleado);
     		pc.setEmpleado(empleado);
     		
@@ -188,7 +188,7 @@ private static final long serialVersionUID = 1L;
 				ejbPedDetFacade.create(listaPedDet.get(i));
 			}
     		
-    	return null;
+    	return "Cliente.xhtml";
     }
     
     

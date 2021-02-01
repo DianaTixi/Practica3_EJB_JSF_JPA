@@ -21,6 +21,8 @@ public class EmpleadoRest {
 	@EJB
 	private EmpleadoFacade ejbEmpleadoFacade;
 	
+	private Empleados empleados;
+	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +43,7 @@ public class EmpleadoRest {
 		
 		Jsonb jsonb = JsonbBuilder.create();
 		List<Empleados> empleados = ejbEmpleadoFacade.findAll();
-		
+
 		return Response.ok(jsonb.toJson(empleados)).build();
 	}
 	

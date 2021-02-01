@@ -33,9 +33,11 @@ public class Empleados implements Serializable {
     @JsonbProperty
 	private char estado;
 	
+    @JsonbProperty
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
 	private ArrayList<Pedido_Cabecera> pedidos;
 	
+	@JsonbProperty
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
 	private ArrayList<FacturaCabecera> facturas;
 	
