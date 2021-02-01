@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-
-import com.mysql.cj.Query;
+//import com.mysql.cj.Query;
 
 public abstract class AbstractFacade<T> {
 
