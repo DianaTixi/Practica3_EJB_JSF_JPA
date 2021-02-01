@@ -2,6 +2,7 @@ package ec.edu.ups.entidad;
 
 import java.io.Serializable;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
 
 @Entity
@@ -11,17 +12,23 @@ public class FacturaDetalle  implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonbProperty
 	private int id;
+	@JsonbProperty
 	private int cantidad;
+	@JsonbProperty
 	private Double precioU;
+	@JsonbProperty
 	private Double subtotal;
 	
 	@ManyToOne
 	@JoinColumn(name = "pro_id")
+	@JsonbProperty
 	private Producto productos;
 	
 	@ManyToOne
 	@JoinColumn(name = "numeroP")
+	@JsonbProperty
 	private FacturaCabecera facturaCab;
 
 	public FacturaDetalle() {

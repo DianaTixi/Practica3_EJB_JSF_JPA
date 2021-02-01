@@ -3,6 +3,7 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
 
 @Entity
@@ -13,19 +14,27 @@ public class FacturaCabecera implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonbProperty
 	private int numeroP;
+	@JsonbProperty
 	private String fecha;
+	@JsonbProperty
 	private Double subtotal;
+	@JsonbProperty
 	private Double iva;
+	@JsonbProperty
 	private Double total;
+	@JsonbProperty
 	private char estado;
 	
 	@ManyToOne
 	@JoinColumn(name = "emp_id",  nullable = false)
+	@JsonbProperty
 	private Empleados empleado ;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaCab")
+	@JsonbProperty
 	private ArrayList<FacturaDetalle> facturaDet;
 
 	public FacturaCabecera() {
