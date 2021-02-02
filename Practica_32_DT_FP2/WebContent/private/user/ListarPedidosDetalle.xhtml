@@ -5,7 +5,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
-    <title>Listar Pedidos</title>
+    <title>Listar Pedidos Detalle</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -46,36 +46,30 @@
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading">
-            <div class="masthead-heading text-uppercase">Listar Pedidos</div>
+            <div class="masthead-heading text-uppercase">Listar Pedido Detalle</div>
                 <h:form class="masthead-subheading" >
-					<h:dataTable value="#{pedidoCabeceraBean.pedidos}" var="p" styleClass="tabla"
+					<h:dataTable value="#{pedidoDetalleBean.listaPedDet}" var="pde" styleClass="tabla"
 						headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 					<h:column>
-						<f:facet name="header">Numero</f:facet>#{p.num_cabecera}
+						<f:facet name="header">Numero</f:facet>#{pde.num_detalle}
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">Estado</f:facet>#{p.estado}
+						<f:facet name="header">Estado</f:facet>#{pde.cantidad}
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">Nombre</f:facet>#{p.empleado.nombre}
+						<f:facet name="header">Nombre</f:facet>#{pde.productos.nombre}
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">Apellido</f:facet>#{p.empleado.apellido}
+						<f:facet name="header">Apellido</f:facet>#{pde.productos.precio}
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">Cedula</f:facet>#{p.empleado.cedula}
+						<f:facet name="header">Pedido</f:facet>#{pde.pedidoCab.num_cabecera}
 					</h:column>
 					
-					
-					<h:column>
-						<f:facet name="header">Ver Detalle</f:facet>
-						<h:commandButton class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" value="Detalle" action="#{pedidoDetalleBean.detalles(p.num_cabecera)}" />
-					</h:column>
-						
 					</h:dataTable>
 				</h:form>
 			</div>

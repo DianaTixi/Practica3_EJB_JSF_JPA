@@ -191,5 +191,19 @@ private static final long serialVersionUID = 1L;
     	return "Cliente.xhtml";
     }
     
+    public String detalles(int id_pedCab) {
+    	
+    	List<Pedido_Detalle> list = ejbPedDetFacade.findAll();
+    	listaPedDet.clear();
+    	//ArrayList<Pedido_Detalle> aux_list = new ArrayList<Pedido_Detalle>();
+    	for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getPedidoCab().getNum_cabecera()==id_pedCab) {
+				listaPedDet.add(list.get(i));
+			}
+		}
+    	
+    	return "ListarPedidosDetalle.xhtml";
+    }
+    
     
 }

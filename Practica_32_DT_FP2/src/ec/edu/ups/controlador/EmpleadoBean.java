@@ -295,5 +295,9 @@ public class EmpleadoBean implements Serializable {
 		return "Empleado.xhtml";
 	}
 	
+	public String editEmple() {
+		ejEmpleadoFacade.edit(empleado);
+		return "Cliente.xhtml";
+	}
 
 }
