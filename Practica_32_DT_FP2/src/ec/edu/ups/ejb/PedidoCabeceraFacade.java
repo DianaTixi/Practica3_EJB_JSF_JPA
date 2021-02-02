@@ -1,9 +1,12 @@
 package ec.edu.ups.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ec.edu.ups.entidad.Empleados;
 import ec.edu.ups.entidad.Pedido_Cabecera;
 
 @Stateless
@@ -37,6 +40,19 @@ public class PedidoCabeceraFacade extends AbstractFacade<Pedido_Cabecera>{
 			String jpql = "SELECT pc FROM Pedido_Cabecera pc WHERE pc.num_cabecera=" + id; 
 			Pedido_Cabecera pedido = (Pedido_Cabecera) em.createQuery(jpql).getSingleResult();
 			return pedido;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Pedido_Cabecera> listaPedidos (int id) {
+		try {
+			String jpql = "SELECT pc FROM Pedido_Cabecera pc WHERE pc.empleado.id=" + id; 
+			List<Pedido_Cabecera> lista = em.createQuery(jpql).getResultList();
+			return lista;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

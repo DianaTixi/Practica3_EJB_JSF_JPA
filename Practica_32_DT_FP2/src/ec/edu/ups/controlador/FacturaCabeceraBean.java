@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 
+import ec.edu.ups.ejb.EmpleadoFacade;
 import ec.edu.ups.ejb.FacturaCabeceraFacade;
 import ec.edu.ups.entidad.Empleados;
 import ec.edu.ups.entidad.FacturaCabecera;
@@ -24,6 +25,8 @@ public class FacturaCabeceraBean implements Serializable{
 	
 	@EJB
 	private FacturaCabeceraFacade ejbFacturaCabecera;
+	
+	
 	
 	private List<FacturaCabecera> lisafacturas;
 	
@@ -130,6 +133,7 @@ public class FacturaCabeceraBean implements Serializable{
 		
 		return null;
 	}
+	
 	
 	
 

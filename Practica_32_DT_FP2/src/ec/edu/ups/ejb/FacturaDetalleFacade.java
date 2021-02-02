@@ -22,6 +22,19 @@ public class FacturaDetalleFacade extends AbstractFacade<FacturaDetalle>{
 		// TODO Auto-generated method stub
 		return em;
 	}
+	public FacturaCabecera buscarF(int id) {
+			
+	        try {
+	            String jpql = "SELECT fac FROM facturacabecera fac WHERE fac.numeroP=" + id;
+	            FacturaCabecera fac = (FacturaCabecera) em.createQuery(jpql).getSingleResult();
+	            return fac;
+	
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        }
+	
+	    }
 	
 	
 }

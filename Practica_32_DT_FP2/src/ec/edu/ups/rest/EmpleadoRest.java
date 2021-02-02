@@ -20,6 +20,8 @@ import javax.ws.rs.core.Response;
 import ec.edu.ups.ejb.EmpleadoFacade;
 import ec.edu.ups.entidad.Empleados;
 
+
+
 @Path("/empleado/")
 public class EmpleadoRest {
 	
@@ -27,6 +29,25 @@ public class EmpleadoRest {
 	private EmpleadoFacade ejbEmpleadoFacade;
 	
 	private Empleados empleados;
+	
+	@POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response login(@FormParam("correo") String correo, @FormParam("contraseña") String contrasena) throws IOException {
+		Empleados empleado = new Empleados();
+		empleado = ejbEmpleadoFacade.buscarEmp(correo, contrasena);
+		
+		if(empleado != null) {
+			System.out.println("usuario encontrado");
+			return Response.ok("Inicio de Sesion Correcto").build();
+			
+		}else {
+			return Response.status(404).entity("Usuario no encontrado").build();
+			
+		}
+		
+    }
 	
 	@GET
 	@Path("/{id}")
@@ -87,7 +108,6 @@ public class EmpleadoRest {
 		return Response.status(201).entity("Empleado creado correctamente: "+emp).build();
 	}
 	
-	
 	@PUT
 	@Path("/edit")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -108,6 +128,31 @@ public class EmpleadoRest {
 	
 		return Response.status(200).entity("Empleado actualizado: " + emp).build();
 	}
+
+	@PUT
+    @Path("/anular")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response anular(@FormParam("cedula") String cedula){
+		
+		Empleados empleado = new Empleados();
+        empleado = ejbEmpleadoFacade.buscarEmp(cedula);
+        if(empleado != null){
+            try{
+            	empleado = new Empleados();
+            	empleado = ejbEmpleadoFacade.buscarEmp(cedula);
+            	empleado.setEstado('I');
+                return Response.ok("Inactivo").build();
+                
+            }catch (Exception e){
+               e.printStackTrace();
+               return Response.status(500).build();
+            }
+        }else{
+        	return  Response.status(200).entity("Cliente Inactivo: " + empleado).build();
+        }
+		
+    }	
 	
 
 }

@@ -48,7 +48,15 @@
 	                    </li>
 	                    
 	                    <li class="nav-item">
-	                    <h:commandLink  class="nav-link js-scroll-trigger" value = "Cerrar Sesion" action = "index.html" /> 
+	                    <h:commandLink  class="nav-link js-scroll-trigger" value = "Lista de Pedidos" action ="#{pedidoCabeceraBean.listarPedidos(empleadoBean.empleado.id)}" /> 
+	                    </li>
+	                    
+	                    <li class="nav-item">
+	                    <h:commandLink  class="nav-link js-scroll-trigger" value = "Lista de Facturas" action ="#{facturaCabeceraBean.listarFacturas(empleadoBean.empleado.id)}" /> 
+	                    </li>
+	                    
+	                    <li class="nav-item">
+	                    <h:commandLink  class="nav-link js-scroll-trigger" value = "Cerrar Sesion" action = "index.xhtml" /> 
 	                    </li>
 	                </ul>
                 </h:form>

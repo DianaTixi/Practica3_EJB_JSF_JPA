@@ -12,10 +12,14 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 
+import ec.edu.ups.ejb.BodegaFacade;
+import ec.edu.ups.ejb.BodegaProductoFacade;
+import ec.edu.ups.ejb.EmpleadoFacade;
 import ec.edu.ups.ejb.FacturaCabeceraFacade;
 import ec.edu.ups.ejb.FacturaDetalleFacade;
 import ec.edu.ups.ejb.PedidoCabeceraFacade;
 import ec.edu.ups.ejb.PedidoDetalleFacade;
+import ec.edu.ups.entidad.BodegaProducto;
 import ec.edu.ups.entidad.Categoria;
 import ec.edu.ups.entidad.Empleados;
 import ec.edu.ups.entidad.FacturaCabecera;
@@ -43,17 +47,28 @@ public class PedidoCabeceraBean implements Serializable{
 	@EJB
 	private FacturaDetalleFacade ejDetalleFacade;
 	
+	@EJB
+    private EmpleadoFacade ejbEmpleadoFacade;
+	
+	@EJB
+	private BodegaProductoFacade ejbBodegaProductoFacade;
+	
 	 
 	 private List<Pedido_Detalle> listPedDet;
 	 private List<Pedido_Cabecera> pedidos;
 	 private List<Producto> listaProductos;
 	 private ArrayList<FacturaDetalle> Fdetalle;
 	 
+	 private ArrayList<BodegaProductoFacade> listaBP;
+	 
+	private List <Pedido_Cabecera> pedidosCli ;
+	
 	 private FacturaCabecera factura;
 	 private FacturaDetalle detalle;
 	 private int num_cabecera;
 	 private char estado;
 	 private Empleados empleado;
+	 private int idCli;
 	 
 	 
 	 
@@ -64,6 +79,8 @@ public class PedidoCabeceraBean implements Serializable{
 		 listaProductos = new ArrayList<Producto>();
 		 pedidos= ejbPedCabFacade.findAll();
 		 Fdetalle= new ArrayList<FacturaDetalle>();
+		 pedidosCli = new ArrayList<Pedido_Cabecera>();
+		 listaBP = new ArrayList<BodegaProductoFacade>();
 	 }
 
 	public Pedido_Cabecera[] getPedidos() {
@@ -142,6 +159,15 @@ public class PedidoCabeceraBean implements Serializable{
 		this.empleado = empleado;
 	}
 	
+	
+	public List<Pedido_Cabecera> getPedidosCli() {
+		return pedidosCli;
+	}
+
+	public void setPedidosCli(List<Pedido_Cabecera> pedidosCli) {
+		this.pedidosCli = pedidosCli;
+	}
+
 	public String cambiarEstado(int num_cabecera) {
 		// Cambiar Estado del Pedido
 		char estado = 'R';
@@ -184,6 +210,18 @@ public class PedidoCabeceraBean implements Serializable{
 				subtotal=subtotal+(cantidad * producto.getPrecio());
 				Fdetalle.add(detalle);
 				
+				//Reducimos el Stock 
+				int idPro = producto.getId();
+				BodegaProducto bodpro= new BodegaProducto();
+				
+				bodpro= ejbBodegaProductoFacade.buscar(1,idPro);
+				
+				int NuevoStock = bodpro.getStock()-cantidad;
+				bodpro.setStock(NuevoStock);
+				
+				ejbBodegaProductoFacade.edit(bodpro);
+				
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -198,6 +236,7 @@ public class PedidoCabeceraBean implements Serializable{
 		
 		//Creacion Factura Cabecera
 				FacturaCabecera factura = new FacturaCabecera();
+				
 				double iva=1.2;
 				// Crear factura 
 				factura.setEstado('A');
@@ -225,6 +264,15 @@ public class PedidoCabeceraBean implements Serializable{
 		
 		return  "Admin.xhtml";
 	}
+	
+	public String listarPedidos(int id) {
+		System.out.println("Id del Cliente es "+ id);
+		//System.out.println("Confirmacion del ID: "+ empleado.getId())
+		pedidosCli = ejbPedCabFacade.listaPedidos(id);
+		System.out.println("Tamano de lista es : " +pedidosCli.size());
+		return "PedidosClientes.xhtml";
+	}
+	
 	 
 	 
 	 
