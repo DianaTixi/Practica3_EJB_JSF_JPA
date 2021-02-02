@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -29,12 +30,12 @@ public class FacturaCabecera implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "emp_id",  nullable = false)
-	@JsonbProperty
+	@JsonbTransient
 	private Empleados empleado ;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaCab")
-	@JsonbProperty
+	@JsonbTransient
 	private ArrayList<FacturaDetalle> facturaDet;
 
 	public FacturaCabecera() {

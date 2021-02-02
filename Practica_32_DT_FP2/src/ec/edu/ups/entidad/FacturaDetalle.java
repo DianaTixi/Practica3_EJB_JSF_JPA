@@ -3,12 +3,14 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
 public class FacturaDetalle  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +25,12 @@ public class FacturaDetalle  implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "pro_id")
-	@JsonbProperty
+	@JsonbTransient
 	private Producto productos;
 	
 	@ManyToOne
 	@JoinColumn(name = "numeroP")
-	@JsonbProperty
+	@JsonbTransient
 	private FacturaCabecera facturaCab;
 
 	public FacturaDetalle() {

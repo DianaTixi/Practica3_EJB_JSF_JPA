@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,11 +28,11 @@ public class Pedido_Cabecera implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "emp_id",  nullable = false)
-	@JsonbProperty
+	@JsonbTransient
 	private Empleados empleado ;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoCab")
-	@JsonbProperty
+	@JsonbTransient
 	private ArrayList<Pedido_Detalle> pedidoDet;
 
 	public Pedido_Cabecera() {

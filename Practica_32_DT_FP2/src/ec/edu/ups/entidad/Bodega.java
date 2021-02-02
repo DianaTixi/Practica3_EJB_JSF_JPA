@@ -3,6 +3,8 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -12,14 +14,19 @@ public class Bodega implements  Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonbProperty
     private int id;
+    @JsonbProperty
     private String nombre;
+    @JsonbProperty
     private String direccion; 
     
+    @JsonbTransient
     @ManyToOne
 	@JoinColumn(name = "cd_id", nullable = false)
 	private Ciudad ciudad;
 
+    @JsonbTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodega")
     private ArrayList<BodegaProducto> bodega_producto;
     

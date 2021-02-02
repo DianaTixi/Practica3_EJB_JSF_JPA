@@ -4,17 +4,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
 public class Ciudad implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonbProperty
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     private String nombre;
     
+    @JsonbTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad" )
     private ArrayList<Bodega>bodega;
     

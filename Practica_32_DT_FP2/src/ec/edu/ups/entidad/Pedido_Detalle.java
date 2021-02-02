@@ -3,6 +3,7 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,12 +25,12 @@ public class Pedido_Detalle implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "pro_id")
-	@JsonbProperty
+	@JsonbTransient
 	private Producto productos;
 	
 	@ManyToOne
 	@JoinColumn(name = "num_cabecera")
-	@JsonbProperty
+	@JsonbTransient
 	private Pedido_Cabecera pedidoCab;
 
 	public Pedido_Detalle() {

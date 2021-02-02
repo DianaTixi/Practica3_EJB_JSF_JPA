@@ -3,6 +3,8 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 /**
@@ -13,6 +15,7 @@ import javax.persistence.*;
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonbProperty
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -21,17 +24,20 @@ public class Producto implements Serializable {
 	private double precio;
 	//private String pro_imagen;
 	
+	@JsonbProperty
 	@ManyToOne
 	@JoinColumn(name = "cat_id", nullable = false)
 	private Categoria categoria;
 	
+	@JsonbTransient
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productos" )
 	private ArrayList<FacturaDetalle> facturaDet; 
 
+	@JsonbTransient
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productos" )
 	private ArrayList<Pedido_Detalle> pedidoDet; 
 
-	
+	@JsonbTransient
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
 	private ArrayList<BodegaProducto> bodega_producto;
 	

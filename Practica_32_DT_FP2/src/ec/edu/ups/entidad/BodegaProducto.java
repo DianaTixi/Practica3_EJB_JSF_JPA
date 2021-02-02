@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -11,15 +13,18 @@ public class BodegaProducto implements  Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    @JsonbProperty
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int stock;
     
+    @JsonbTransient
     @ManyToOne 
     @JoinColumn(name = "bod_id", nullable = false)
     private Bodega bodega;
     
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "pro_id", nullable = false)
     private Producto producto;

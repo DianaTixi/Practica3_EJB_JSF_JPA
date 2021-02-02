@@ -3,6 +3,8 @@ package ec.edu.ups.entidad;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 /**
@@ -13,14 +15,18 @@ import javax.persistence.*;
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonbProperty
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @JsonbProperty
     @Column  
     private String nombre;
+    @JsonbProperty
     @Column
     private String descripcion;
     
+    @JsonbTransient
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
 
