@@ -1,6 +1,7 @@
 package ec.edu.ups.rest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,9 +21,11 @@ import javax.ws.rs.core.Response;
 import ec.edu.ups.ejb.EmpleadoFacade;
 import ec.edu.ups.ejb.PedidoCabeceraFacade;
 import ec.edu.ups.ejb.PedidoDetalleFacade;
+import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.entidad.Empleados;
 import ec.edu.ups.entidad.Pedido_Cabecera;
 import ec.edu.ups.entidad.Pedido_Detalle;
+import ec.edu.ups.entidad.Producto;
 
 @Path("/pedido/")
 public class PedidoRest {
@@ -36,6 +39,9 @@ public class PedidoRest {
 	@EJB
 	private EmpleadoFacade ejbEmpleado;
 	
+	@EJB
+    private ProductoFacade ejbProductoFacade;
+	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -43,15 +49,25 @@ public class PedidoRest {
 		System.out.println("ENtra a api call");
 		System.out.println("Id del api="+id);
 		Jsonb jsonb = JsonbBuilder.create();
-		Pedido_Cabecera ped = new Pedido_Cabecera();
-		try {
-			ped = ejbPedCab.find(id);
-		} catch (Exception e) {
-			e.printStackTrace();
+		Empleados emp = new Empleados();
+		emp = ejbEmpleado.findEmp(id);
+		
+		List<Pedido_Cabecera> list = new ArrayList<>();
+		list.clear();
+		List<Pedido_Cabecera> aux_lost = new ArrayList<Pedido_Cabecera>();
+		aux_lost.clear();
+		
+		list = ejbPedCab.findAll();
+		
+		
+		for (int i = 0; i < list.size(); i++) {
+		
+			if (list.get(i).getEmpleado().getId()==id) {
+				aux_lost.add(list.get(i));
+			}
 		}
 		
-		
-		return Response.ok(jsonb.toJson(ped)).build();
+		return Response.ok(jsonb.toJson(aux_lost)).build();
 	}
 	
 	@GET
@@ -111,4 +127,18 @@ public class PedidoRest {
 	
 		return Response.status(200).entity("Pedido actualizado: " + ped).build();
 	}
+	
+	
+	@POST
+	@Path("/bodcat")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getbodcat(@FormParam("bodega") String bodega, @FormParam("categoria") String categoria) throws IOException{
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		List<Producto> list = ejbProductoFacade.ListarPro_Bod_Cat(bodega, categoria);
+		
+		return Response.ok(jsonb.toJson(list)).build();
+	}
+	
 }

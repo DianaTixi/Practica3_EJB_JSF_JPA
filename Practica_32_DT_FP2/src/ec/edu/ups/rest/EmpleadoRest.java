@@ -46,6 +46,24 @@ public class EmpleadoRest {
 		return Response.ok(jsonb.toJson(empleado)).build();
 	}
 	
+	@POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response login(@FormParam("email") String email, @FormParam("password") String password) throws IOException {
+		Empleados emp = new Empleados();
+		emp = ejbEmpleadoFacade.buscarEmp(email, password);
+		
+		if(emp != null) {
+			return Response.ok("Inicio de Sesion Correcto").build();
+			
+		}else {
+			return Response.status(404).entity("Inicio de Sesion Incorrecto").build();
+			
+		}
+		
+    }
+	
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -60,7 +78,7 @@ public class EmpleadoRest {
 	
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response postEmp(@FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("cedula") String cedula,
 			@FormParam("direccion") String direccion, @FormParam("email") String email,@FormParam("telefono") String telefono ,
@@ -110,4 +128,29 @@ public class EmpleadoRest {
 	}
 	
 
+	
+	@PUT
+    @Path("/anular")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response anular(@FormParam("cedula") String cedula){
+
+        Empleados empleado = new Empleados();
+        empleado = ejbEmpleadoFacade.buscarEmp(cedula);
+        if(empleado != null){
+            try{
+                empleado = new Empleados();
+                empleado = ejbEmpleadoFacade.buscarEmp(cedula);
+                empleado.setEstado('I');
+                return Response.ok("Inactivo").build();
+
+            }catch (Exception e){
+               e.printStackTrace();
+               return Response.status(500).build();
+            }
+        }else{
+            return  Response.status(200).entity("Cliente Inactivo: " + empleado).build();
+        }
+
+    }
 }
